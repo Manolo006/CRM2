@@ -1,0 +1,152 @@
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --surface-soft: #eef6ff;
+  --text: #526070;
+  --text-strong: #102033;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --border: #dde6f0;
+  --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  font: 16px/1.5 Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+* { box-sizing: border-box; }
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+h1, h2, p { margin: 0; }
+h1, h2 { color: var(--text-strong); }
+
+.login-page, .loading-page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.login-card, .panel, .stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.login-card {
+  width: min(460px, 100%);
+  padding: 36px;
+  display: grid;
+  gap: 18px;
+}
+
+.brand-badge {
+  width: fit-content;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.primary-button, .user-box button, .pagination button {
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 16px;
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+}
+
+.primary-button:hover, .user-box button:hover, .pagination button:hover { background: var(--primary-dark); }
+.pagination button:disabled { opacity: 0.45; cursor: not-allowed; }
+.error-text { color: #dc2626; }
+.demo-note {
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.app-shell {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  padding: 28px;
+  background: #0f172a;
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.sidebar h2 { color: white; margin-top: 14px; }
+.main-nav { display: grid; gap: 10px; }
+.main-nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 12px 14px;
+  border-radius: 14px;
+}
+.main-nav a.active, .main-nav a:hover { background: rgba(255,255,255,0.12); color: white; }
+.user-box { margin-top: auto; display: grid; gap: 12px; }
+
+.content { padding: 36px; display: grid; gap: 24px; align-content: start; }
+.page-header { display: grid; gap: 8px; }
+.page-header span { color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.78rem; }
+.page-header h1 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1; }
+.row-header { display: flex; justify-content: space-between; gap: 16px; align-items: end; }
+
+.stats-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.stat-card { padding: 24px; display: grid; gap: 8px; }
+.stat-card span { font-weight: 700; }
+.stat-card strong { color: var(--text-strong); font-size: 2.5rem; line-height: 1; }
+
+.panel { padding: 22px; }
+.section-heading { margin-bottom: 16px; }
+.clients-map { height: 380px; border-radius: 18px; overflow: hidden; }
+.tall-map .clients-map { height: 640px; }
+
+.filters { display: flex; gap: 12px; margin-bottom: 18px; }
+.filters input, .filters select {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: white;
+}
+.filters input { flex: 1; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 14px; border-bottom: 1px solid var(--border); }
+th { color: var(--text-strong); font-size: 0.85rem; text-transform: uppercase; }
+.pagination { display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-top: 18px; }
+
+.agenda-list { display: grid; gap: 12px; }
+.agenda-item { padding: 16px; border: 1px solid var(--border); border-radius: 16px; display: grid; gap: 4px; }
+.agenda-item time { color: var(--primary); font-weight: 700; }
+
+@media (max-width: 860px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .row-header, .filters { flex-direction: column; align-items: stretch; }
+}

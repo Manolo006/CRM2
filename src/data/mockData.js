@@ -19,7 +19,9 @@ export const demoOrders = [
 ]
 
 export const demoCalendarEvents = [
-  { id: 'e1', summary: 'Visita Cartolibreria Dante', start: '2026-06-25T09:30:00' },
-  { id: 'e2', summary: 'Follow-up Scuola Collodi', start: '2026-06-26T11:00:00' },
-  { id: 'e3', summary: 'Consegna cataloghi Como', start: '2026-06-27T15:00:00' },
+  { id: 'e1', summary: '[Lavoro] Visita Cartolibreria Dante', start: '2026-06-25T09:30:00', location: 'Milano' },
+  { id: 'e2', summary: '#lavoro Follow-up Scuola Collodi', start: '2026-06-26T11:00:00', location: 'Bergamo' },
+  { id: 'e3', summary: 'Lavoro - Consegna cataloghi Como', start: '2026-06-27T15:00:00', location: 'Como' },
+  { id: 'e4', summary: 'Festa della Liberazione', start: '2026-04-25' },
+  { id: 'e5', summary: 'Cena privata', start: '2026-06-28T20:00:00' },
 ]

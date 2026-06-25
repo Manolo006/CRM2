@@ -41,13 +41,13 @@ export default function ClientsTable({ clients, onEditClient }) {
             <tbody>
               {visible.map((client) => (
                 <tr key={client.id}>
-                  <td>{client.name}</td>
-                  <td>{client.city}</td>
-                  <td>{client.type}</td>
-                  <td>{client.mobile || client.phone || client.email || '-'}</td>
-                  <td>{client.googleMapsUrl ? <a href={client.googleMapsUrl} target="_blank" rel="noreferrer">Maps</a> : `${client.lat}, ${client.lng}`}</td>
-                  <td>{client.status}</td>
-                  <td><button className="secondary-button" type="button" onClick={() => onEditClient(client)}>Modifica</button></td>
+                  <td data-label="Cliente">{client.name}</td>
+                  <td data-label="Località">{client.city}</td>
+                  <td data-label="Tipo">{client.type}</td>
+                  <td data-label="Contatti">{client.mobile || client.phone || client.email || '-'}</td>
+                  <td data-label="Maps">{client.googleMapsUrl ? <a href={client.googleMapsUrl} target="_blank" rel="noreferrer">Maps</a> : `${client.lat}, ${client.lng}`}</td>
+                  <td data-label="Stato">{client.status}</td>
+                  <td data-label="Azioni"><button className="secondary-button" type="button" onClick={() => onEditClient(client)}>Modifica</button></td>
                 </tr>
               ))}
             </tbody>

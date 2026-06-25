@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 
 const PAGE_SIZE = 3
 
-export default function ClientsTable({ clients }) {
+export default function ClientsTable({ clients, onEditClient }) {
   const [search, setSearch] = useState('')
   const [type, setType] = useState('Tutti')
   const [page, setPage] = useState(1)
@@ -31,18 +31,28 @@ export default function ClientsTable({ clients }) {
         </select>
       </div>
       <div className="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Cliente</th><th>Città</th><th>Tipo</th><th>Ultima visita</th><th>Stato</th></tr>
-          </thead>
-          <tbody>
-            {visible.map((client) => (
-              <tr key={client.id}>
-                <td>{client.name}</td><td>{client.city}</td><td>{client.type}</td><td>{client.lastVisit}</td><td>{client.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {visible.length === 0 ? (
+          <p>Nessun cliente salvato. Aggiungi una location con il form sopra.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr><th>Cliente</th><th>Località</th><th>Tipo</th><th>Contatti</th><th>Maps</th><th>Stato</th><th>Azioni</th></tr>
+            </thead>
+            <tbody>
+              {visible.map((client) => (
+                <tr key={client.id}>
+                  <td>{client.name}</td>
+                  <td>{client.city}</td>
+                  <td>{client.type}</td>
+                  <td>{client.mobile || client.phone || client.email || '-'}</td>
+                  <td>{client.googleMapsUrl ? <a href={client.googleMapsUrl} target="_blank" rel="noreferrer">Maps</a> : `${client.lat}, ${client.lng}`}</td>
+                  <td>{client.status}</td>
+                  <td><button className="secondary-button" type="button" onClick={() => onEditClient(client)}>Modifica</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
       <div className="pagination">
         <button disabled={page === 1} onClick={() => setPage(page - 1)}>Precedente</button>

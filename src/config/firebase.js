@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
+import { getDatabase } from 'firebase/database'
 
 export const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY ?? 'AIzaSyDN4Krqci-4nCRvA9t2C8y8ou6tpLypNTQ',
@@ -25,4 +25,4 @@ export const auth = app ? getAuth(app) : null
 export const googleProvider = new GoogleAuthProvider()
 googleProvider.addScope('https://www.googleapis.com/auth/calendar.readonly')
 googleProvider.setCustomParameters({ prompt: 'select_account' })
-export const db = app ? getFirestore(app) : null
+export const realtimeDb = app ? getDatabase(app) : null

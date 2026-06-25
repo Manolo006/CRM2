@@ -1,31 +1,30 @@
+import { useState } from 'react'
+import ClientLocationForm from '../components/clients/ClientLocationForm'
 import ClientsTable from '../components/clients/ClientsTable'
-import { demoClients } from '../data/mockData'
-import { saveClient } from '../services/firestore'
+import QuickClientModal from '../components/clients/QuickClientModal'
+import { useRealtimeList } from '../hooks/useRealtimeList'
+import { paths } from '../services/realtimeDatabase'
 
 export default function ClientsPage() {
-  async function handleDemoSave() {
-    await saveClient({
-      name: 'Nuovo cliente demo',
-      city: 'Lecco',
-      type: 'Cartoleria',
-      status: 'Prospect',
-      lat: 45.8566,
-      lng: 9.3977,
-    })
-    alert('Cliente demo salvato su Firestore')
-  }
+  const [editingClient, setEditingClient] = useState(null)
+  const { items: clients, loading } = useRealtimeList(paths.clients)
 
   return (
     <>
-      <header className="page-header row-header">
+      <header className="page-header">
         <div>
           <span>Archivio</span>
           <h1>Clienti</h1>
-          <p>Filtra e consulta scuole, cartolerie e grossisti.</p>
+          <p>Aggiungi location e consulta clienti salvati su Firebase.</p>
         </div>
-        <button className="primary-button" type="button" onClick={handleDemoSave}>Salva demo Firestore</button>
       </header>
-      <ClientsTable clients={demoClients} />
+      <ClientLocationForm />
+      <QuickClientModal open={editingClient} onClose={() => setEditingClient(null)} />
+      {loading ? (
+        <section className="panel">Caricamento clienti...</section>
+      ) : (
+        <ClientsTable clients={clients} onEditClient={setEditingClient} />
+      )}
     </>
   )
 }

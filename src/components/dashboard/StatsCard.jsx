@@ -1,9 +1,11 @@
 export default function StatsCard({ label, value, hint }) {
   return (
     <article className="stat-card">
-      <span>{label}</span>
+      <div>
+        <span>{label}</span>
+        <small>{hint}</small>
+      </div>
       <strong>{value}</strong>
-      <small>{hint}</small>
     </article>
   )
 }

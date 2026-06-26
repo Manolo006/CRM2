@@ -2,6 +2,8 @@ import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from
 import { createContext, createElement, useContext, useEffect, useMemo, useState } from 'react'
 import { auth, googleProvider, isFirebaseConfigured } from '../config/firebase'
 
+const isAccountAccessDisabled = true
+
 const demoUser = {
   displayName: 'Agente Demo',
   email: 'demo@crm-scuola.it',
@@ -10,12 +12,12 @@ const demoUser = {
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(isFirebaseConfigured ? null : demoUser)
+  const [user, setUser] = useState(isAccountAccessDisabled || !isFirebaseConfigured ? demoUser : null)
   const [accessToken, setAccessToken] = useState(null)
-  const [loading, setLoading] = useState(isFirebaseConfigured)
+  const [loading, setLoading] = useState(!isAccountAccessDisabled && isFirebaseConfigured)
 
   useEffect(() => {
-    if (!auth) return undefined
+    if (isAccountAccessDisabled || !auth) return undefined
 
     return onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
@@ -24,7 +26,7 @@ export function AuthProvider({ children }) {
   }, [])
 
   async function loginWithGoogle() {
-    if (!auth) {
+    if (isAccountAccessDisabled || !auth) {
       setUser(demoUser)
       return
     }
@@ -37,7 +39,7 @@ export function AuthProvider({ children }) {
 
   function logout() {
     setAccessToken(null)
-    if (!auth) {
+    if (isAccountAccessDisabled || !auth) {
       setUser(demoUser)
       return Promise.resolve()
     }
@@ -51,7 +53,8 @@ export function AuthProvider({ children }) {
     loading,
     loginWithGoogle,
     logout,
-    isFirebaseConfigured,
+    isFirebaseConfigured: !isAccountAccessDisabled && isFirebaseConfigured,
+    isAccountAccessDisabled,
   }), [user, accessToken, loading])
 
   return createElement(AuthContext.Provider, { value }, children)

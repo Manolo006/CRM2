@@ -2,10 +2,10 @@ import { NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 
 const navItems = [
-  { to: '/', label: 'Dashboard' },
-  { to: '/clienti', label: 'Clienti' },
-  { to: '/mappa', label: 'Mappa' },
-  { to: '/agenda', label: 'Agenda' },
+  { to: '/', label: 'Dashboard', icon: '▦' },
+  { to: '/clienti', label: 'Clienti', icon: '◎' },
+  { to: '/mappa', label: 'Mappa', icon: '⌖' },
+  { to: '/agenda', label: 'Agenda', icon: '◷' },
 ]
 
 export default function AppLayout() {
@@ -21,7 +21,8 @@ export default function AppLayout() {
         <nav className="main-nav">
           {navItems.map((item) => (
             <NavLink key={item.to} to={item.to} end={item.to === '/'}>
-              {item.label}
+              <span aria-hidden="true">{item.icon}</span>
+              <b>{item.label}</b>
             </NavLink>
           ))}
         </nav>

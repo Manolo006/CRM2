@@ -24,13 +24,21 @@ export default function AgendaPage() {
     loadEvents()
   }, [accessToken])
 
+  const monthEvents = events.length
+
   return (
     <>
-      <header className="page-header">
-        <span>Agenda</span>
-        <h1>Calendario lavoro</h1>
-        <p>{status}</p>
-        <p className="tag-hint">Nomenclatura valida: {WORK_EVENT_TAGS.join(', ')}</p>
+      <header className="page-hero row-header">
+        <div>
+          <span>Agenda</span>
+          <h1>Calendario lavoro</h1>
+          <p>{status}</p>
+          <p className="tag-hint">Nomenclatura valida: {WORK_EVENT_TAGS.join(', ')}</p>
+        </div>
+        <div className="hero-meter">
+          <strong>{monthEvents}</strong>
+          <small>eventi filtrati</small>
+        </div>
       </header>
       <AgendaList events={events} />
     </>

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 
 export default function GoogleLogin() {
-  const { loginWithGoogle, isFirebaseConfigured } = useAuth()
+  const { loginWithGoogle, isFirebaseConfigured, isAccountAccessDisabled } = useAuth()
   const [error, setError] = useState('')
 
   async function handleLogin() {
@@ -19,7 +19,15 @@ export default function GoogleLogin() {
       <div className="brand-badge">CRM Scuola</div>
       <h1>Accesso rappresentanti</h1>
       <p>Gestisci clienti, visite, ordini e agenda Google per articoli scolastici.</p>
-      {!isFirebaseConfigured && (
+      <div className="login-features">
+        <span>Clienti geolocalizzati</span>
+        <span>Agenda lavoro filtrata</span>
+        <span>Dashboard commerciale</span>
+      </div>
+      {isAccountAccessDisabled && (
+        <p className="demo-note">Accesso account disattivato per test mobile. Entra in modalità demo.</p>
+      )}
+      {!isFirebaseConfigured && !isAccountAccessDisabled && (
         <p className="demo-note">Modalità demo attiva: aggiungi `.env` per Firebase reale.</p>
       )}
       {isFirebaseConfigured && (

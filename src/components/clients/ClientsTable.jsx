@@ -43,10 +43,10 @@ export default function ClientsTable({ clients, onEditClient }) {
                 <tr key={client.id}>
                   <td data-label="Cliente">{client.name}</td>
                   <td data-label="Località">{client.city}</td>
-                  <td data-label="Tipo">{client.type}</td>
+                  <td data-label="Tipo"><span className="pill">{client.type}</span></td>
                   <td data-label="Contatti">{client.mobile || client.phone || client.email || '-'}</td>
                   <td data-label="Maps">{client.googleMapsUrl ? <a href={client.googleMapsUrl} target="_blank" rel="noreferrer">Maps</a> : `${client.lat}, ${client.lng}`}</td>
-                  <td data-label="Stato">{client.status}</td>
+                  <td data-label="Stato"><span className="pill pill-soft">{client.status}</span></td>
                   <td data-label="Azioni"><button className="secondary-button" type="button" onClick={() => onEditClient(client)}>Modifica</button></td>
                 </tr>
               ))}

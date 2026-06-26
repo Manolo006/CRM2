@@ -8,16 +8,35 @@ import { paths } from '../services/realtimeDatabase'
 export default function ClientsPage() {
   const [editingClient, setEditingClient] = useState(null)
   const { items: clients, loading } = useRealtimeList(paths.clients)
+  const activeCount = clients.filter((client) => ['Attivo', 'Disponibile'].includes(client.status)).length
+  const prospectCount = clients.filter((client) => client.status?.toLowerCase().includes('prospect') || client.type?.toLowerCase().includes('prospect')).length
 
   return (
     <>
-      <header className="page-header">
+      <header className="page-hero">
         <div>
           <span>Archivio</span>
           <h1>Clienti</h1>
-          <p>Aggiungi location e consulta clienti salvati su Firebase.</p>
+          <p>Gestisci anagrafiche, contatti e posizione dei clienti nel tuo territorio.</p>
         </div>
       </header>
+      <section className="insight-grid">
+        <article className="panel insight-card">
+          <span className="eyebrow">Totale archivio</span>
+          <strong>{clients.length}</strong>
+          <p>Clienti presenti nel database.</p>
+        </article>
+        <article className="panel insight-card">
+          <span className="eyebrow">Attivi</span>
+          <strong>{activeCount}</strong>
+          <p>Clienti pronti per visite e ordini.</p>
+        </article>
+        <article className="panel insight-card accent-card">
+          <span className="eyebrow">Prospect</span>
+          <strong>{prospectCount}</strong>
+          <p>Opportunità da trasformare.</p>
+        </article>
+      </section>
       <ClientLocationForm />
       <QuickClientModal open={editingClient} onClose={() => setEditingClient(null)} />
       {loading ? (
